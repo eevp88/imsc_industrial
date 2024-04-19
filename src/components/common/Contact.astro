@@ -1,0 +1,104 @@
+---
+import Headline from "@/components/common/Headline.astro";
+import WidgetWrapper from "@/components/ui/WidgetWrapper.astro";
+import Button from "@/components/common/Button.astro";
+import type { Contact as Props } from "@/types/Contact";
+
+const {
+  title = await Astro.slots.render("title"),
+  subtitle = await Astro.slots.render("subtitle"),
+  tagline = await Astro.slots.render("tagline"),
+  button,
+  id,
+  isDark = false,
+  classes = {},
+  bg = await Astro.slots.render("bg"),
+  result,
+} = Astro.props;
+---
+
+
+<WidgetWrapper
+  id={id}
+  isDark={isDark}
+  containerClass={`max-w-7xl mx-auto ${classes?.container ?? ""}`}
+  bg={bg}
+>
+  <Headline title={title} subtitle={subtitle} tagline={tagline} />
+
+  <div
+    class="flex flex-col max-w-xl mx-auto rounded-lg backdrop-blur border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900 shadow p-4 sm:p-6 lg:p-8 w-full"
+  >
+    <form id="form">
+      <div class="mb-6">
+        <label for="name" class="block text-sm font-medium"> Nombre </label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Ingrese su nombre"
+          class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+        />
+      </div>
+      <div class="mb-6">
+        <label for="email" class="block text-sm font-medium"> Email </label>
+
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Ingrese su Email"
+          class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+        />
+      </div>
+
+      <div>
+        <label for="textarea" class="block text-sm font-medium">
+          Mensaje
+        </label>
+        <textarea
+          id="textarea"
+          name="message"
+          rows="4"
+          class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+        ></textarea>
+      </div>
+
+      <div class="mt-3 flex items-start">
+        <div class="flex mt-0.5">
+          <input
+            id="disclaimer"
+            name="disclaimer"
+            type="checkbox"
+            class="cursor-pointer mt-1 py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+          />
+        </div>
+        <div class="ml-3">
+          <label
+            for="disclaimer"
+            class="cursor-pointer select-none text-sm text-gray-600 dark:text-gray-400"
+          >
+            Al enviar este formulario de contacto, usted reconoce y acepta la
+            recopilación de su información personal.
+          </label>
+        </div>
+      </div>
+
+      <div class="mt-10 grid">
+        <Button variant="primary" type="submit">
+          {button}
+        </Button>
+      </div>
+      <div class="mt-3 text-center">
+        <p class="text-sm text-gray-600 dark:text-gray-400">
+          Nuestro equipo respondera lo antes posible.
+        </p>
+      </div>
+      <div class="mt-3 text-center">
+        <p id="result" class="text-sm text-gray-600 dark:text-gray-400">
+          {result}
+        </p>
+      </div>
+    </form>
+  </div>
+</WidgetWrapper>

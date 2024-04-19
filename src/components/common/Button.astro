@@ -1,0 +1,86 @@
+---
+import { Icon } from 'astro-icon/components';
+//import { twMerge } from 'tailwind-merge';
+import type { CallToAction as Props } from '@/types/CallToAction';
+
+
+
+const {
+  variant = 'secondary',
+  target,
+  text = Astro.slots.render('default'),
+  icon = '',
+  class: className = '',
+  type,
+  ...rest
+} = Astro.props;
+
+const variants = {
+  primary: 'btn-primary',
+  secondary: 'btn-secondary',
+  tertiary: 'btn btn-tertiary',
+  link: 'cursor-pointer hover:text-primary',
+};
+---
+
+{
+  type === 'button' || type === 'submit' || type === 'reset' ? (
+    <button type={type} class:list= {
+      [`${variants[variant] || ''} ` , className ]
+    } {...rest}>
+      <Fragment set:html={text} />
+      {icon && <Icon name={icon} class="w-5 h-5 ml-1 -mr-1.5 rtl:mr-1 rtl:-ml-1.5 inline-block" />}
+    </button>
+
+    <script is:inline>
+
+      const form = document.getElementById('form');
+    
+      if (form){
+        form.addEventListener('submit',  async function(e) {
+          const formData = new FormData(form);
+          e.preventDefault();
+
+          const result = document.getElementById('result');
+          const object = Object.fromEntries(formData);
+          const json  = JSON.stringify(object);
+          result.innerHTML = "Espere por favor..."
+          
+          try {
+            const res = await fetch("/api/sendEmail.json", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                subject: `Mensaje de contacto ${formData.get("name")} `,
+                html: json,
+                text: json,
+              }),
+            });
+            const data = await res.json();
+            if (data) {
+              //console.log(data)
+              result.innerHTML = "Mensaje enviado correctamente..."
+              form.reset();
+            }
+          } catch (e) {
+            console.error(e);
+          }
+        });  
+      }
+    </script>
+
+  ) : (
+    <a
+      class= {
+        `${variants[variant] || ''} ` , className
+      } 
+      {...(target ? { target: target, rel: 'noopener noreferrer' } : {})}
+      {...rest}
+    >
+      <Fragment set:html={text} />
+      {icon && <Icon name={icon} class="w-5 h-5 ml-1 -mr-1.5 rtl:mr-1 rtl:-ml-1.5 inline-block" />}
+    </a>
+  )
+}

@@ -1,0 +1,46 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { SITE } from '@/consts/sitio';
+import HeroText from '@/components/common/HeroText.astro';
+import ContactUs from '@/components/common/Contact.astro';
+import Features from '@/components/common/Features.astro';
+
+
+
+const title = ` Contacto - ${SITE.name}`
+---
+
+<Layout title ={title}>
+
+  <HeroText title="Contactanos" />
+
+  <ContactUs
+    title="Envíanos un mensaje"
+    subtitle=""
+    button='Enviar mensaje'
+   
+  />
+
+ <!--  Features2 Widget ************** -->
+
+  <Features
+    title="¡Estamos aquí para ayudar!"
+    items={[
+      {
+        title: 'Celular',
+        description: '+56984793428',
+        icon: 'tabler:headset',
+      },
+      {
+        title: 'Email',
+        description: 'v.eleon77@gmail.com',
+        icon: 'tabler:mail',
+      },
+      {
+        title: 'Dirección',
+        description: 'Luis de Toledo N° 102, Villa Picarte 4000, Valdivia',
+        icon: 'tabler:map-pin',
+      },
+    ]}
+  />
+</Layout>
