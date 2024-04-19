@@ -1,5 +1,5 @@
 export const RESEND = {
-    id: 're_e69rRE1M_65Sd8gEbdyfzihsntqKWv7ui',
-    from: 'Acme <onboarding@resend.dev>', // noreplay@imscindusctrial.cl
-    to: 'eevp88@gmail.com'
+    id: import.meta.env.KEY_API_RESEND,
+    from:import.meta.env.FROM_RESEND,
+    to: import.meta.env.TO_RESEND
   }
