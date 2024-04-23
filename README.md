@@ -1,4 +1,4 @@
-# IMSC Industrial SaP.
+# IMSC Industrial SpA.
 
 sitio  web de  la empresa
 
