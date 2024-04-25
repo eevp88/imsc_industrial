@@ -1,5 +1,10 @@
+export interface Env {
+    KEY_API_RESEND: string;
+    FROM_RESEND: string;  
+    TO_RESEND: string; 
+}
 export const RESEND = {
-    id: import.meta.env.KEY_API_RESEND,
-    from:import.meta.env.FROM_RESEND,
-    to: import.meta.env.TO_RESEND
+    id: env.KEY_API_RESEND,
+    from: .env.FROM_RESEND,
+    to: env.TO_RESEND
   }
